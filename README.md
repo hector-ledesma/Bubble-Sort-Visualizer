@@ -1,7 +1,7 @@
 # Algorithms Visualizer :bar_chart:
 > Everyone's done it and so shall I!
 
-Everyone seems to have an algorithm visualizer in their portfolio, and for **good** reason. My aim with this long-term project is to develop a collection of algorithms in order to display both my understanding of them, as well as grow and demonstrate my skills with C++.
+Everyone seems to have an algorithm visualizer in their portfolio, and for a **good** reason. My aim with this long-term project is to develop a collection of algorithms in order to display both my understanding of them, as well as grow and demonstrate my skills with C++.
 
 ### Dependencies :bookmark_tabs: :
 
