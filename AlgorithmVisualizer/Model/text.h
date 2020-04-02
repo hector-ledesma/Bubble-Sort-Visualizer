@@ -22,14 +22,13 @@
 class Text {
 public:
 	// Constructor & Destructor
-	Text(SDL_Renderer* renderer, const std::string &font_path, int font_size, std::string &message_text, const SDL_Color &color);
-	~Text();
+	Text(SDL_Renderer* renderer, const std::string &font_path, int font_size, const std::string &message_text, const SDL_Color &color);
 
 	// This method will take care of putting our object onto the screen
 	void display(SDL_Renderer* renderer, int x, int y) const;
 
 	// I believe that the reason behind making this function static, is so that we can only create one texture in memory. Otherwise every loop we'd keep creating a new one.
-	static SDL_Texture* loadFont(SDL_Renderer* renderer, const std::string& font_path, int font_size, std::string& message_text, const SDL_Color& color);
+	static SDL_Texture* loadFont(SDL_Renderer* renderer, const std::string& font_path, int font_size, const std::string& message_text, const SDL_Color& color);
 
 private:
 	SDL_Texture* _text_texture = nullptr;

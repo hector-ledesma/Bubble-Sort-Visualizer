@@ -1,4 +1,5 @@
 #include "../Model/window.h"
+#include <SDL_ttf.h>
 #include <iostream>
 
 // Only const properties can be initalized within the class. So we initialize it here to nullptr for best practice.
@@ -21,6 +22,7 @@ Window::~Window()
 	Every single created object from SDL is done so in the HEAP, therefore they must all 
 	be manually deconstructed.
 	*/
+	TTF_Quit();
 	SDL_DestroyWindow(_window);
 	SDL_DestroyRenderer(renderer);
 }
@@ -30,6 +32,12 @@ bool Window::init() {
 	// First, attempt to initialize SDL. SDL_Init returns 0 on success.
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		std::cerr << "Failed to initialize SDL.\n";
+		return false;
+	}
+
+	// All other libraries must be initialized here.
+	if (TTF_Init() == -1) {
+		std::cerr << "Failed to initialize SDL_ttf\n";
 		return false;
 	}
 
@@ -61,7 +69,14 @@ bool Window::init() {
 }
 
 void Window::pollEvents(SDL_Event& event) {
-
+	switch (event.type)
+	{
+	case SDL_QUIT:
+		_closed = true;
+		break;
+	default:
+		break;
+	}
 }
 
 void Window::clear() const {
