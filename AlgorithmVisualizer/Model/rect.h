@@ -12,8 +12,7 @@
 	It would also let us create texture in a much more organized manner.
 */
 
-#include "window.h"
-#include <string>
+#include "window.h" // We handle importing window.h here so we don't have to in rect.cpp
 
 class Rect {
 public:
@@ -21,7 +20,7 @@ public:
 	~Rect();
 
 	// Must always have our function to render into the screen.
-	void draw() const; // If a function will not alter any of the object's properties (or at least shouldn't) make sure to mark it as const.
+	void draw(SDL_Renderer* renderer) const; // If a function will not alter any of the object's properties (or at least shouldn't) make sure to mark it as const.
 
 	// Function to listen for input.
 	void pollEvents(SDL_Event& event);

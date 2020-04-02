@@ -15,8 +15,6 @@
 	destinationRect (from this rect is where we'll get the dimensions that the texture will be scaled to).
 */
 
-#include <string>
-#include <SDL.h>
 #include <SDL_ttf.h>
 
 class Text {

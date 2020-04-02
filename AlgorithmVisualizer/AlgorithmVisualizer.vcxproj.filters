@@ -24,6 +24,9 @@
     <ClCompile Include="Implementation\text.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Implementation\rect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Model\window.h">
