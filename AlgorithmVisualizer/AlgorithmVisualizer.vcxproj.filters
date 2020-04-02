@@ -32,5 +32,8 @@
     <ClInclude Include="Model\text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Model\rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

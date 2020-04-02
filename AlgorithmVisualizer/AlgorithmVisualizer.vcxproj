@@ -149,6 +149,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Model\rect.h" />
     <ClInclude Include="Model\text.h" />
     <ClInclude Include="Model\window.h" />
   </ItemGroup>
