@@ -1,29 +1,26 @@
 #include "../Model/window.h"
 #include "../Model/text.h"
 #include "../Model/rect.h"
+#include <algorithm>
+#include <array>
+#include <iostream>
 #undef main
 
-class Item {
-public:
-	Item(int id, int x, int h);
-
-	int get_id();
-	
-private:
-	int _id;
-	int _x, _h;
-	SDL_Rect* itemRect = nullptr;
-};
-
-Item::Item(int id, int x, int h) : _id(id), _x(x), _h(h)
-{
-	Rect rect(20, _h, _x, 20, 255, 255, 255, 255);
-}
 
 void flip(SDL_Rect& rect1, SDL_Rect& rect2) {
 	int hold = rect1.x;
 	rect1.x = rect2.x;
 	rect2.x = hold;
+}
+
+void bubbleSort() {
+	/*
+	//	Receive whole array? Or only receive current item being held and the next one ot be compared?
+	//	I believe the whole array should be passed, as that would give the function full freedom and control.
+		1.:	Count how many swaps have happened.
+			a.:	If 0, terminate.
+		2.:	
+	*/
 }
 
 int main(int argc, char *argv) {
@@ -60,16 +57,21 @@ int main(int argc, char *argv) {
 	hit4.x = 140;
 	hit4.y = 180;
 
+	int positions[] = {20, 60, 100, 140};
+	SDL_Rect* items[] = { &hit4, &hit2, &hit1, &hit3 };
+
+	for (int i = 0; i < 4 ; i++) {
+		items[i]->x = positions[i];
+	}
 	// ------------------------------------------------------------------------------
 
 	SDL_Event event;
 
 	Window window("Algorithm Visualizer - Hector Ledesma", 800, 600); // Creating the window will initialize everything.
 	Text title(Window::renderer, "res/msyh_console.ttf", 24, "This is a test", {255, 255, 255, 255});
-	//Rect rect1(20, 200, 20, 380, 255, 255, 255, 255);
-	//Rect rect2(20, 400, 60, 180, 255, 255, 255, 255);
 
 	while (!window.isClosed()) {
+
 		if (SDL_PollEvent(&event)) {
 			window.pollEvents(event);
 		}
@@ -77,16 +79,21 @@ int main(int argc, char *argv) {
 
 		// ------------------------------------------------------------------------------
 		SDL_SetRenderDrawColor(Window::renderer, 255, 255, 255, 255);
-		SDL_RenderFillRect(Window::renderer, &hit1);
-		SDL_RenderFillRect(Window::renderer, &hit2);
-		SDL_RenderFillRect(Window::renderer, &hit3);
-		SDL_RenderFillRect(Window::renderer, &hit4);
+		//SDL_RenderFillRect(Window::renderer, &hit1);
+		//SDL_RenderFillRect(Window::renderer, &hit2);
+		//SDL_RenderFillRect(Window::renderer, &hit3);
+		//SDL_RenderFillRect(Window::renderer, &hit4);
+		SDL_RenderFillRect(Window::renderer, items[0]);
+		SDL_RenderFillRect(Window::renderer, items[1]);
+		SDL_RenderFillRect(Window::renderer, items[2]);
+		SDL_RenderFillRect(Window::renderer, items[3]);
 
-		flip(hit1, hit4);
-		SDL_Delay(500);
+		flip(*items[0], *items[2]);
+		
 		// ------------------------------------------------------------------------------
 
 		window.clear(); // Always leave this at the bottom, as THIS is what updates the screen.
+		SDL_Delay(500);
 	}
 
 	return 0;
