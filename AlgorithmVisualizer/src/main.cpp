@@ -13,22 +13,69 @@ void flip(SDL_Rect& rect1, SDL_Rect& rect2) {
 	rect2.x = hold;
 }
 
-void bubbleSort(int* count, SDL_Rect *arr[], int size) {
+void bubbleSort(bool& finished, SDL_Rect **arr, int size, Window &window) {
 	/*
 	Receive whole array? Or only receive current item being held and the next one ot be compared?
 	I believe the whole array should be passed, as that would give the function full freedom and control.
 
 		1.:	Count how many swaps have happened.
-			a.:	If 0, terminate.
-		2.:	
+				a.:	If 0, terminate.
+		2.:	Grab index to be compared against other items. (Start with 0 by default).
+		3.:	Compare current index with the next item
+				a.:	If held item is smaller (.height) leave it at that location, and make the next item the held item.
+				b.:	If held item is larger, move held item's pointer to a temp location, move the adjacent smaller item to held item's index location, then move held item to adjacent item index. Then add +1 to count.
 	*/
+	int held = 0;
+	std::cout << "We enter the function" << std::endl;
 
-	for (int i = 0; i < size; i++) {
-		std::cout << "Rect at index: " << i << " has a height of: " << arr[i]->h << std::endl;
+	while (!finished) {
+		std::cout << "We enter the while loop" << std::endl;
+		int count = 0;
+
+		for (int i = 1; i < size; i++) {
+			//std::cout << "We enter the for loop." << std::endl;
+			if (arr[held]->h < arr[i]->h) {
+				std::cout << "Held (" << held << ").h is NOT larger than index(" << i << ").h" << std::endl;
+				held = i;
+				SDL_RenderClear(Window::renderer);
+				SDL_Delay(100);
+				std::cout << "no switch" << std::endl;
+				std::cout << "Held is now " << held << std::endl;
+			}
+			else if (arr[held]->h > arr[i]->h) {
+				std::cout << "Held (" << held << ").h is larger than index(" << i << ").h" << std::endl;
+
+				SDL_Rect* placeholder = arr[held];
+				std::cout << "Placeholder is now held: " << placeholder->h << std::endl;
+				arr[held] = arr[i];
+				arr[i] = placeholder;
+
+				count++;
+				held = i;
+				SDL_RenderClear(Window::renderer);
+				SDL_Delay(300);
+				std::cout << "made a switch" << std::endl;
+			}
+			std::cout << "New order: " << std::endl;
+			for (int j = 0; j < size; j++) {
+				std::cout << "\t" << j+1 << " -- x : " << arr[j]->x << " -- h :" << arr[j]->h << std::endl;
+			}
+			for (int o = 0; o < 4; o++) {
+				items[i]->x = positions[i];
+				//std::cout << "Index --- " << i << " --- height --- " << items[i]->h << std::endl;
+			}
+		}
+
+		if (count == 0) {
+			finished = true;
+		}
+		else {
+			held = 0;
+		}
+		
+
 	}
-
-	*count += 1; // Why doesn't ++ work here?
-	SDL_Delay(50000);
+	
 }
 
 int main(int argc, char *argv) {
@@ -66,12 +113,12 @@ int main(int argc, char *argv) {
 	hit4.y = 180;
 
 	int positions[] = {20, 60, 100, 140};
-	SDL_Rect* items[] = { &hit1, &hit2, &hit3, &hit4 };
-
-	for (int i = 0; i < 4 ; i++) {
+	SDL_Rect* items[] = { &hit3, &hit1, &hit4, &hit2 };
+	for (int i = 0; i < 4; i++) {
 		items[i]->x = positions[i];
-		std::cout << "Index --- " << i << " --- height --- " << items[i]->h << std::endl;
+		//std::cout << "Index --- " << i << " --- height --- " << items[i]->h << std::endl;
 	}
+	
 	// ------------------------------------------------------------------------------
 
 	SDL_Event event;
@@ -79,7 +126,8 @@ int main(int argc, char *argv) {
 	Window window("Algorithm Visualizer - Hector Ledesma", 800, 600); // Creating the window will initialize everything.
 	Text title(Window::renderer, "res/msyh_console.ttf", 24, "This is a test", {255, 255, 255, 255});
 
-	int bubbleCount = 0;
+	bool finishSort = false;
+
 	while (!window.isClosed()) {
 
 		if (SDL_PollEvent(&event)) {
@@ -88,6 +136,7 @@ int main(int argc, char *argv) {
 		title.display(Window::renderer, 20, 20);
 
 		// ------------------------------------------------------------------------------
+
 		SDL_SetRenderDrawColor(Window::renderer, 255, 255, 255, 255);
 
 		SDL_RenderFillRect(Window::renderer, items[0]);
@@ -99,9 +148,15 @@ int main(int argc, char *argv) {
 		//SDL_Delay(500);
 		
 		// ------------------------------------------------------------------------------
-
+		
+		for (int i = 0; i < 4; i++) {
+			items[i]->x = positions[i];
+			//std::cout << "Index --- " << i << " --- height --- " << items[i]->h << std::endl;
+		}
 		window.clear(); // Always leave this at the bottom, as THIS is what updates the screen.
-		bubbleSort(&bubbleCount, items, 4);
+		SDL_Delay(300);
+		bubbleSort(finishSort, items, 4, window);
+		
 	}
 
 	return 0;
