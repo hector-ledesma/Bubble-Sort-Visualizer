@@ -13,14 +13,22 @@ void flip(SDL_Rect& rect1, SDL_Rect& rect2) {
 	rect2.x = hold;
 }
 
-void bubbleSort() {
+void bubbleSort(int* count, SDL_Rect *arr[], int size) {
 	/*
-	//	Receive whole array? Or only receive current item being held and the next one ot be compared?
-	//	I believe the whole array should be passed, as that would give the function full freedom and control.
+	Receive whole array? Or only receive current item being held and the next one ot be compared?
+	I believe the whole array should be passed, as that would give the function full freedom and control.
+
 		1.:	Count how many swaps have happened.
 			a.:	If 0, terminate.
 		2.:	
 	*/
+
+	for (int i = 0; i < size; i++) {
+		std::cout << "Rect at index: " << i << " has a height of: " << arr[i]->h << std::endl;
+	}
+
+	*count += 1; // Why doesn't ++ work here?
+	SDL_Delay(50000);
 }
 
 int main(int argc, char *argv) {
@@ -58,10 +66,11 @@ int main(int argc, char *argv) {
 	hit4.y = 180;
 
 	int positions[] = {20, 60, 100, 140};
-	SDL_Rect* items[] = { &hit4, &hit2, &hit1, &hit3 };
+	SDL_Rect* items[] = { &hit1, &hit2, &hit3, &hit4 };
 
 	for (int i = 0; i < 4 ; i++) {
 		items[i]->x = positions[i];
+		std::cout << "Index --- " << i << " --- height --- " << items[i]->h << std::endl;
 	}
 	// ------------------------------------------------------------------------------
 
@@ -70,6 +79,7 @@ int main(int argc, char *argv) {
 	Window window("Algorithm Visualizer - Hector Ledesma", 800, 600); // Creating the window will initialize everything.
 	Text title(Window::renderer, "res/msyh_console.ttf", 24, "This is a test", {255, 255, 255, 255});
 
+	int bubbleCount = 0;
 	while (!window.isClosed()) {
 
 		if (SDL_PollEvent(&event)) {
@@ -79,21 +89,19 @@ int main(int argc, char *argv) {
 
 		// ------------------------------------------------------------------------------
 		SDL_SetRenderDrawColor(Window::renderer, 255, 255, 255, 255);
-		//SDL_RenderFillRect(Window::renderer, &hit1);
-		//SDL_RenderFillRect(Window::renderer, &hit2);
-		//SDL_RenderFillRect(Window::renderer, &hit3);
-		//SDL_RenderFillRect(Window::renderer, &hit4);
+
 		SDL_RenderFillRect(Window::renderer, items[0]);
 		SDL_RenderFillRect(Window::renderer, items[1]);
 		SDL_RenderFillRect(Window::renderer, items[2]);
 		SDL_RenderFillRect(Window::renderer, items[3]);
 
-		flip(*items[0], *items[2]);
+		//flip(*items[0], *items[2]);
+		//SDL_Delay(500);
 		
 		// ------------------------------------------------------------------------------
 
 		window.clear(); // Always leave this at the bottom, as THIS is what updates the screen.
-		SDL_Delay(500);
+		bubbleSort(&bubbleCount, items, 4);
 	}
 
 	return 0;
