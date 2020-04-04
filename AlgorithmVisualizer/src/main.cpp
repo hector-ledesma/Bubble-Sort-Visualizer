@@ -28,7 +28,6 @@ void bubbleSort(bool& finished, SDL_Rect **arr, int size, Window &window) {
 	int held = 0;
 	std::cout << "We enter the function" << std::endl;
 	while (!finished) {
-
 		std::cout << "We enter the while loop" << std::endl;
 		int count = 0;
 
@@ -144,7 +143,6 @@ int main(int argc, char *argv) {
 	bool finishSort = false;
 	
 	while (!window.isClosed()) {
-
 		if (SDL_PollEvent(&event)) {
 			window.pollEvents(event);
 		}
