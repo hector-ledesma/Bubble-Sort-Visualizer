@@ -129,7 +129,6 @@ int main(int argc, char *argv) {
 
 	int positions[] = {20, 60, 100, 140};
 
-
 	SDL_Rect* items[20] = { &hit7, &hit17, &hit16, &hit2, &hit15, &hit4, &hit19, &hit8, &hit9, &hit3, &hit1, &hit5, &hit20, &hit14, &hit13, &hit11, &hit12, &hit6, &hit10, &hit18 };
 	for (int i = 0; i < 20; i++) {
 		items[i]->x = 20 + (40 * i);
