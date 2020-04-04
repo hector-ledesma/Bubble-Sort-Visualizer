@@ -27,14 +27,12 @@ void bubbleSort(bool& finished, SDL_Rect **arr, int size, Window &window) {
 	*/
 	int held = 0;
 	std::cout << "We enter the function" << std::endl;
-	// int positions[] = { 20, 60, 100, 140 };
 	while (!finished) {
 
 		std::cout << "We enter the while loop" << std::endl;
 		int count = 0;
 
 		for (int i = 1; i < size; i++) {
-			//std::cout << "We enter the for loop." << std::endl;
 			if (arr[held]->h < arr[i]->h) {
 				std::cout << "Held (" << held << ").h is NOT larger than index(" << i << ").h" << std::endl;
 				held = i;
@@ -84,7 +82,6 @@ void bubbleSort(bool& finished, SDL_Rect **arr, int size, Window &window) {
 }
 
 void dynamic_array(SDL_Rect arr[20]) {
-	/*
 	*/
 	for (int i = 0; i < 20; i++) {
 		SDL_Rect newRect;
@@ -131,19 +128,12 @@ int main(int argc, char *argv) {
 	SDL_Rect hit20;	hit20.w = 20;	hit20.h = 480;	hit20.x = 780;	hit20.y = 600 - hit20.h;
 
 	int positions[] = {20, 60, 100, 140};
-	// SDL_Rect* items[] = { &hit3, &hit1, &hit4, &hit2 };
 
 
 	SDL_Rect* items[20] = { &hit7, &hit17, &hit16, &hit2, &hit15, &hit4, &hit19, &hit8, &hit9, &hit3, &hit1, &hit5, &hit20, &hit14, &hit13, &hit11, &hit12, &hit6, &hit10, &hit18 };
 	for (int i = 0; i < 20; i++) {
 		items[i]->x = 20 + (40 * i);
 	}
-
-
-
-	// for (int i = 0; i < 4; i++) {
-	// 	items[i]->x = positions[i];
-	// }
 	
 	// ------------------------------------------------------------------------------
 
@@ -155,7 +145,6 @@ int main(int argc, char *argv) {
 	bool finishSort = false;
 	
 	while (!window.isClosed()) {
-		//SDL_Delay(500);
 
 		if (SDL_PollEvent(&event)) {
 			window.pollEvents(event);
@@ -163,21 +152,11 @@ int main(int argc, char *argv) {
 		title.display(Window::renderer, 20, 20);
 
 		// ------------------------------------------------------------------------------
-
-
-		// SDL_RenderFillRect(Window::renderer, items[0]);
-		// SDL_RenderFillRect(Window::renderer, items[1]);
-		// SDL_RenderFillRect(Window::renderer, items[2]);
-		// SDL_RenderFillRect(Window::renderer, items[3]);
-
-		//flip(*items[0], *items[2]);
-		//SDL_Delay(500);
 		
 		
 		render_rects(items);
 		// ------------------------------------------------------------------------------
 		window.clear(); // Always leave this at the bottom, as THIS is what updates the screen.
-		//SDL_Delay(300);
 		bubbleSort(finishSort, items, 20, window);
 		
 	}
