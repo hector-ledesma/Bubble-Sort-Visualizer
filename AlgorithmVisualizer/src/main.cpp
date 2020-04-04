@@ -82,7 +82,7 @@ void bubbleSort(bool& finished, SDL_Rect **arr, int size, Window &window) {
 }
 
 void dynamic_array(SDL_Rect arr[20]) {
-	*/
+	
 	for (int i = 0; i < 20; i++) {
 		SDL_Rect newRect;
 		newRect.w = 20;
@@ -139,7 +139,7 @@ int main(int argc, char *argv) {
 
 	SDL_Event event;
 
-	Window window("Algorithm Visualizer - Hector Ledesma", 800, 600); // Creating the window will initialize everything.
+	Window window("Algorithm Visualizer - Hector Ledesma", 820, 600); // Creating the window will initialize everything.
 	Text title(Window::renderer, "res/msyh_console.ttf", 24, "Bubble Sort.", {255, 255, 255, 255});
 
 	bool finishSort = false;
